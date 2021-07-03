@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Headless</title>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container mt-3">
+        <h1>XMPP account exporter</h1>
+
+	<div class="alert alert-danger" style="display:none" id="error-alert">
+		<p></p>
+		<div style="display:none" class="expert-info-container">
+			<button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target=".expert-info-container>.collapse">More details</button>
+			<div class="collapse mt-3">
+				<code id="expert-info">foo</code>
+			</div>
+		</div>
+	</div>
+
+        <form class="login" action="">
+		<p>This utility allows you to download your data from any XMPP account, into a file.
+		   It also allows you to upload your data to a new account and inform your contacts.
+		</p>
+		<div class="alert alert-info">
+			<p>
+				<strong>Note:</strong> If you want to move your data to a new account, make
+				sure you have created it already and have your credentials ready! You will
+				need them to complete the migration.
+			</p>
+			<p>
+				Need help choosing a new provider? Check out
+				<a href="https://joinjabber.org/">joinjabber.org</a> for free public providers or
+				<a href="https://snikket.org/">Snikket</a> if you want to manage your own private service.
+			</p>
+		</div>
+		<h2>Connect to your account</h2>
+		<p>Let's get started! Enter the details of the account you want to export your data <em>from</em>.</p>
+            <div class="form-group">
+                <label for="jid">XMPP address</label>
+                <input required="required" type="email" name="jid" class="form-control" id="jid-el" aria-describedby="jidHelp" placeholder="username@example.com">
+                <small id="jidHelp" class="form-text text-muted">Also known as your Jabber ID (JID)</small>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input required="required" type="password" name="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Connect</button>
+
+            <h2 class="mt-3">Privacy information</h2>
+            <p>This application connects directly to your account and does not
+               store or share your credentials or data with any third party.
+            </p>
+
+            <h2 class="mt-3">About this project</h2>
+            <p>This is an <a href="https://github.com/snikket-im/xmpp-account-exporter">open-source</a> project developed by
+            <a href="https://snikket.org/">Snikket</a> and funded by an EU grant through the <a href="https://dapsi.ngi.eu/">NGI DAPSI</a>
+            programme as part of the <a href="https://docs.modernxmpp.org/projects/portability/">XMPP account portability</a> project.
+            </p>
+            <h3>Credits</h3>
+            <p>Built upon open-source projects including <a href="https://conversejs.org/">Converse.js</a>,
+            <a href="https://github.com/eligrey/FileSaver.js/">FileSaver.js</a> and <a href="https://getbootstrap.com/">Bootstrap</a>.
+            </p>
+            <p>This project has received funding from the European Union's H2020 research and innovation programme
+               under Grant Agreement no 871498.
+            </p>
+            <div style="display:flex; flex-direction:row;">
+                <a href="https://www.ngi.eu/"><img src="assets/Logo-NGI_Explicit-with-baseline-rgb.png" alt="NGI Logo (Next Generation Internet: Internet of Humans)" style="border:none"></a>
+                <a href="https://www.ngi.eu/"><img src="assets/NGI_DAPSI_Tag-color-positive.png" alt="NGI DAPSI Logo" style="border:none"></a>
+                <a href="https://europa.eu/"><img src="assets/EU%20emblem.jpg" alt="EU emblem" style="border:none"></a>
+            </div>
+        </form>
+
+        <div id="download-status-panel" style="display:none">
+        	<h2>Exporting your data</h2>
+        	<p>Your data export is in progress...</p>
+        </div>
+
+	<div class="migration-status">
+		<div class="alert alert-success" id="migration-status-success" style="display:none">
+			<h2>Migration complete</h2>
+			<p>Congratulations! Your data has been uploaded to your new account.</p>
+		</div>
+		<div class="alert alert-warning" id="migration-status-warning" style="display:none">
+			<h2>Some data failed to migrate</h2>
+			<p>There were errors while migrating the following data:</p>
+			<ul id="migration-failure-list"></ul>
+		</div>
+	</div>
+
+	<div class="download" style="display:none">
+		<h2>Manage your data</h2>
+		<p>Your account data for <code id="exported-jid"></code> is ready. Download it now, or migrate it to a new account.</p>
+		<a id="download-button" class="btn btn-primary mt-1" href="#">Download account data</a>
+		&nbsp;
+		<button type="button" id="migrate-button" class="btn btn-primary mt-1" data-bs-toggle="modal" data-bs-target="#migrate-modal">Upload to another account...</button>
+		<p class="pt-3">The exported data contains your:</p>
+		<ul id="exported-data-list">
+		</ul>
+	</div>
+
+	<br/>
+
+	<div class="alert alert-secondary" id="connection-status-panel" style="display:none">
+		<form class="logout" style="display: none">
+			<div class="d-flex">
+				<div class="flex-fill mt-2">
+					<span id="conn-status-text">Logged in</span>&nbsp;
+				</div>
+				<div class="align-top">
+					<button type="button" class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#debug-panel">Toggle debug info</button>
+					<button type="submit" class="btn btn-secondary">Log out</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+        <br/>
+        <div class="collapse" id="debug-panel">
+        	<h5>Debug info</h5>
+        	<p>This information may be useful to developers.</p>
+	        <div class="output"></div>
+	</div>
+    </div>
+    <div class="modal" id="migrate-modal" tabindex="-1" aria-labelledby="migrate-modal-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="migrate-modal-title">Migrate to new account</h5>
+                </div>
+                <div class="modal-body">
+                    <p>This will upload your account data to a new account. It will also notify
+                       your contacts so they can update their contact list with your new address.
+                    </p>
+                    <p>Provide login details for your new XMPP account.</p>
+                    <form class="login-secondary" action="">
+                    <div class="form-group">
+                        <label for="jid">XMPP address</label>
+                        <input required="required" type="email" name="jid" class="form-control" id="jid-el" aria-describedby="jidHelp" placeholder="Enter XMPP Address">
+                        <small id="jidHelp" class="form-text text-muted">Also known as your Jabber ID (JID)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input required="required" type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <br/>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" name="notify-contacts" id="notify-contacts" checked>
+                        <label class="form-check-label" for="notify-contacts">Tell contacts about my new account (recommended)</label>
+                        <br/>
+                        <small id="notify-help" class="form-text text-muted">This allows your existing contacts to add your new address to their contact list</small>
+                    </div>
+                    <br/>
+                    <button type="submit" class="btn btn-primary">Start migration</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+    	
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="FileSaver.min.js"></script>
+    <script src="index.js"></script>
+    <script src="converse-headless-7.0.6/dist/converse-headless.min.js" charset="utf-8"></script>
+</body>
+</html>
