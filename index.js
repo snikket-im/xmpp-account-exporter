@@ -6,6 +6,7 @@ let data_names = {
 // Hard-code BOSH URLs for some servers without XEP-0156 support
 let static_service_urls = {
 	"blabber.im": "https://blabber.im/http-bind",
+	"libre-chat.net": "https://libre-chat.net:5280/bosh",
 };
 
 function setServiceUrl(_converse, service_url) {
