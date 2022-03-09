@@ -166,6 +166,7 @@ function getServiceURL(jid) {
 		const xhr = new XMLHttpRequest();
 		xhr.onabort = reject;
 		xhr.onerror = reject;
+		xhr.overrideMimeType("text/xml");
 		xhr.onload = function(evt) {
 			const xml = evt.target.responseXML;
 			const links = parseXPath(xml, './xrd:XRD/xrd:Link', XPathResult.ORDERED_NODE_ITERATOR_TYPE);
