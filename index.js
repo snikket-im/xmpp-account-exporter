@@ -125,6 +125,36 @@ function fetchData(_converse, env) {
 	]);
 }
 
+const NS = {
+    xrd: 'http://docs.oasis-open.org/ns/xri/xrd-1.0',
+    roster: 'jabber:iq:roster',
+    disco_items: 'http://jabber.org/protocol/disco#items',
+    disco_info: 'http://jabber.org/protocol/disco#info',
+    dataforms: 'jabber:x:data',
+    pubsub: 'http://jabber.org/protocol/pubsub',
+    pubsub_owner: 'http://jabber.org/protocol/pubsub#owner',
+    avatar_metadata: 'urn:xmpp:avatar:metadata',
+    avatar_data: 'urn:xmpp:avatar:data',
+    nickname: 'http://jabber.org/protocol/nick',
+    vcard4: 'urn:ietf:params:xml:ns:vcard-4.0',
+    mam: 'urn:xmpp:mam:2',
+    forward: 'urn:xmpp:forward:0',
+};
+
+function nsResolver(prefix) {
+    return NS[prefix] || null;
+}
+
+function parseXPath(elem, xpath, result)
+{
+    if (result === undefined)
+        result = XPathResult.FIRST_ORDERED_NODE_TYPE;
+    const value = elem.getRootNode().evaluate(xpath, elem, nsResolver, result, null);
+    if (result == XPathResult.FIRST_ORDERED_NODE_TYPE)
+        return value.singleNodeValue;
+    return value;
+}
+
 function getServiceURL(jid) {
 	const [nodepart, domainpart] = jid.split('@', 2);
 	if(static_service_urls.hasOwnProperty(domainpart)) {
