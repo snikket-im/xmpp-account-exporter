@@ -45,7 +45,6 @@ function uploadRoster(_converse, env, roster, notify) {
 		$pres
 	} = env;
 	return new Promise(function(resolve, reject) {
-		throw "foo";
 		Strophe.forEachChild(roster, "item", (roster_item) => {
 			let contact_jid = roster_item.getAttribute("jid");
 			let old_sub_state = roster_item.getAttribute("subscription");
