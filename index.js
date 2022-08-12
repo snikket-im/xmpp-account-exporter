@@ -167,9 +167,14 @@ function getServiceURL(jid) {
 		xhr.onerror = reject;
 		xhr.overrideMimeType("text/xml");
 		xhr.onload = function(evt) {
+			if(evt.target.status != 200) {
+				reject();
+				return;
+			}
 			const xml = evt.target.responseXML;
 			if(!xml) {
 				reject();
+				return;
 			}
 			const links = parseXPath(xml, './xrd:XRD/xrd:Link', XPathResult.ORDERED_NODE_ITERATOR_TYPE);
 			let bosh_service = null;
@@ -200,12 +205,18 @@ function getServiceURL(jid) {
 		const xhr = new XMLHttpRequest();
 		xhr.onabort = reject;
 		xhr.onerror = reject;
+		xhr.overrideMimeType("application/json");
 		xhr.onload = function(evt) {
+			if(evt.target.status != 200) {
+				reject();
+				return;
+			}
 			let jrd = null;
 			switch(evt.target.responseType) {
 				case "json":
 					jrd = evt.target.response;
 					break;
+				case "": // "An empty responseType string is the same as "text", the default type."
 				case "text":
 					jrd = JSON.parse(evt.target.response);
 					break;
