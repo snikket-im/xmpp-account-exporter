@@ -168,6 +168,9 @@ function getServiceURL(jid) {
 		xhr.overrideMimeType("text/xml");
 		xhr.onload = function(evt) {
 			const xml = evt.target.responseXML;
+			if(!xml) {
+				reject();
+			}
 			const links = parseXPath(xml, './xrd:XRD/xrd:Link', XPathResult.ORDERED_NODE_ITERATOR_TYPE);
 			let bosh_service = null;
 			let ws_service = null;
