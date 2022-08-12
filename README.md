@@ -17,6 +17,10 @@ Support for more data types is planned.
 The easiest way to get started is to use a hosted instance, for example the
 one at [migrate.modernxmpp.org](https://migrate.modernxmpp.org/).
 
+## Source
+
+Depends on Bootstrap CSS framework v5.0.2.
+
 ## Credits
 
 This is an open-source project developed by [Snikket](https://snikket.org) and
