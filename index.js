@@ -7,6 +7,7 @@ let data_names = {
 let static_service_urls = {
 	"blabber.im": "https://blabber.im/http-bind",
 	"libre-chat.net": "https://libre-chat.net:5280/bosh",
+	"snopyta.org": "https://xmpp.snopyta.org/http-bind"
 };
 
 function setServiceUrl(_converse, service_url) {
