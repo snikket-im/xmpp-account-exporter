@@ -43,18 +43,23 @@
 		</div>
 
         <form class="login" action="">
-		<h2>Connect to your account</h2>
-		<p>Let's get started! Enter the details of the account you want to export your data <em>from</em>.</p>
-            <div class="form-group">
-                <label for="jid">XMPP address</label>
-                <input required="required" type="email" name="jid" class="form-control" id="jid-el" aria-describedby="jidHelp" placeholder="username@example.com">
-                <small id="jidHelp" class="form-text text-muted">Also known as your Jabber ID (JID)</small>
+            <div class="row justify-content-center pt-4">
+                <div class="col-12 col-md-6 p-4 p-md-5 border rounded-3 bg-body-tertiary">
+                    <h3>Connect to your account</h3>
+                    <p>Let's get started! Enter the details of the account you want to export your data <em>from</em>.</p>
+                    <div class="form-floating mb-3">
+                        <input required="required" type="email" name="jid" class="form-control" id="jid-primary" aria-describedby="jid-help" placeholder="username@example.com">
+                        <label for="jid-primary">XMPP address</label>
+                        <div id="jid-help" class="form-text">Also known as your Jabber ID (JID)</div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input required="required" type="password" name="password" class="form-control" id="password-primary" placeholder="Password">
+                        <label for="password-primary">Password</label>
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-primary mt-2">Connect</button>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input required="required" type="password" name="password" class="form-control" id="password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary mt-2">Connect</button>
         </form>
 
         <div id="download-status-panel" style="display:none">
