@@ -48,9 +48,9 @@
                     <h3>Connect to your account</h3>
                     <p>Let's get started! Enter the details of the account you want to export your data <em>from</em>.</p>
                     <div class="form-floating mb-3">
-                        <input required="required" type="email" name="jid" class="form-control" id="jid-primary" aria-describedby="jid-help" placeholder="username@example.com">
+                        <input required="required" type="email" name="jid" class="form-control" id="jid-primary" aria-describedby="jid-primary-help" placeholder="username@example.com">
                         <label for="jid-primary">XMPP address</label>
-                        <div id="jid-help" class="form-text">Also known as your Jabber ID (JID)</div>
+                        <div id="jid-primary-help" class="form-text">Also known as your Jabber ID (JID)</div>
                     </div>
 
                     <div class="form-floating mb-3">
@@ -156,39 +156,40 @@
         </div>
     </footer>
 
-    <div class="modal" id="migrate-modal" tabindex="-1" aria-labelledby="migrate-modal-title" aria-hidden="true">
+    <div class="modal fade" id="migrate-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="migrate-modal-title" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="migrate-modal-title">Migrate to new account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <p>This will upload your account data to a new account. It will also notify
-                       your contacts so they can update their contact list with your new address.
-                    </p>
-                    <p>Provide login details for your new XMPP account.</p>
-                    <form class="login-secondary" action="">
-                        <div class="form-group">
-                            <label for="jid">XMPP address</label>
-                            <input required="required" type="email" name="jid" class="form-control" id="jid-el" aria-describedby="jidHelp" placeholder="Enter XMPP Address">
-                            <small id="jidHelp" class="form-text text-muted">Also known as your Jabber ID (JID)</small>
+                <form class="login-secondary" action="">
+                    <div class="modal-body">
+                        <p>This will upload your account data to a new account. It will also notify
+                        your contacts so they can update their contact list with your new address.
+                        </p>
+                        <p>Provide login details for your <em>new</em> XMPP account.</p>
+                        <div class="form-floating mb-3">
+                            <input required="required" type="email" name="jid" class="form-control" id="jid-secondary" aria-describedby="jid-secondary-help" placeholder="username@example.com">
+                            <label for="jid-secondary">XMPP address</label>
+                            <div id="jid-secondary-help" class="form-text">Also known as your Jabber ID (JID)</div>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input required="required" type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <div class="form-floating mb-3">
+                            <input required="required" type="password" name="password" class="form-control" id="password-secondary" placeholder="Password">
+                            <label for="password-secondary">Password</label>
                         </div>
-                        <br/>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" name="notify-contacts" id="notify-contacts" checked>
+                            <input class="form-check-input" type="checkbox" value="" name="notify-contacts" id="notify-contacts" aria-describedby="notify-help" checked>
                             <label class="form-check-label" for="notify-contacts">Tell contacts about my new account (recommended)</label>
                             <br/>
-                            <small id="notify-help" class="form-text text-muted">This allows your existing contacts to add your new address to their contact list</small>
+                            <div id="notify-help" class="form-text">This allows your existing contacts to add your new address to their contact list</div>
                         </div>
-                        <br/>
-                        <button type="submit" class="btn btn-primary">Start migration</button>
+                    </div>
+                    <div class="modal-footer">
                         <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    </form>
-                </div>
+                        <button type="submit" class="btn btn-primary">Start migration</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
