@@ -62,6 +62,18 @@
             </div>
         </form>
 
+        <div class="alert alert-secondary" id="connection-status-panel" style="display:none" role="alert">
+            <form class="logout" style="display: none">
+                <div class="d-flex align-items-center">
+                    <div class="flex-fill">
+                        <span id="conn-status-text">Logged in</span>&nbsp;
+                    </div>
+                    <button type="button" class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#debug-panel">Toggle debug info</button>
+                    <button type="submit" class="btn btn-secondary">Log out</button>
+                </div>
+            </form>
+        </div>
+
         <div id="download-status-panel" style="display:none">
         	<h2>Exporting your data</h2>
         	<p>Your data export is in progress...</p>
@@ -92,19 +104,7 @@
 
 	<br/>
 
-	<div class="alert alert-secondary" id="connection-status-panel" style="display:none">
-		<form class="logout" style="display: none">
-			<div class="d-flex">
-				<div class="flex-fill mt-2">
-					<span id="conn-status-text">Logged in</span>&nbsp;
-				</div>
-				<div class="align-top">
-					<button type="button" class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#debug-panel">Toggle debug info</button>
-					<button type="submit" class="btn btn-secondary">Log out</button>
-				</div>
-			</div>
-		</form>
-	</div>
+
 
         <br/>
         <div class="collapse" id="debug-panel">
