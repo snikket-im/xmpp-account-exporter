@@ -281,10 +281,12 @@ window.addEventListener('converse-loaded', function(e) {
 			const conn_status_panel = document.querySelector('#connection-status-panel');
 			const login_form = document.querySelector('form.login');
 			const secondary_login_form = document.querySelector('form.login-secondary');
+			const new_account_hint = document.getElementById('new-account-hint')
 
 			login_form.addEventListener('submit', ev => {
 				ev.preventDefault();
 				const form_data = new FormData(ev.target);
+				new_account_hint.style.display = 'none'
 				login_form.style.display = 'none';
 				logout_form.style.display = 'block';
 				hideErrorMessage();
