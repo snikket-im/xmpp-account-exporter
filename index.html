@@ -43,10 +43,10 @@
 		</div>
 
         <form class="login" action="">
-            <div class="row justify-content-center py-4">
-                <div class="col-12 col-md-6 p-4 p-md-5 border rounded-3 bg-body-tertiary">
+            <div class="row justify-content-center pt-4 pb-5">
+                <div class="col-12 col-md-6 p-4 p-md-5 border rounded-3 shadow bg-body-tertiary">
                     <h3>Connect to your account</h3>
-                    <p>Let's get started! Enter the details of the account you want to export your data <em>from</em>.</p>
+                    <p class="text-muted">Let's get started! Enter the details of the account you want to export your data <em>from</em>.</p>
                     <div class="form-floating mb-3">
                         <input required="required" type="email" name="jid" class="form-control" id="jid-primary" aria-describedby="jid-primary-help" placeholder="username@example.com">
                         <label for="jid-primary">XMPP address</label>
@@ -62,7 +62,7 @@
             </div>
         </form>
 
-        <div class="card card mt-3 mb-5 d-none" id="account-management-card">
+        <div class="card shadow mt-3 mb-5 col col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 d-none" id="account-management-card">
             <div class="card-header">
                 <div id="connection-status-panel" style="display:none">
                     <form class="logout" style="display: none">
@@ -77,25 +77,32 @@
                 </div>
             </div>
             <div class="card-body">
+
+                <div id="loading-spinner" class="text-center m-5">
+                    <div class="spinner-border text-secondary m-5 " style="width: 3rem; height: 3rem;" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
                 <div id="download-status-panel" style="display:none">
-                    <h2>Exporting your data</h2>
+                    <h3>Exporting your data</h3>
                     <p>Your data export is in progress...</p>
                 </div>
 
                 <div class="migration-status">
                     <div class="alert alert-success" id="migration-status-success" style="display:none">
-                        <h2>Migration complete</h2>
+                        <h3>Migration complete</h3>
                         <p>Congratulations! Your data has been uploaded to your new account.</p>
                     </div>
                     <div class="alert alert-warning" id="migration-status-warning" style="display:none">
-                        <h2>Some data failed to migrate</h2>
+                        <h3>Some data failed to migrate</h3>
                         <p>There were errors while migrating the following data:</p>
                         <ul id="migration-failure-list"></ul>
                     </div>
                 </div>
 
                 <div class="download" style="display:none">
-                    <h2>Manage your data</h2>
+                    <h3>Manage your data</h3>
                     <p>Your account data for <code id="exported-jid"></code> is ready. Download it now, or migrate it to a new account.</p>
                     <a id="download-button" class="btn btn-primary mt-1 me-4" href="#">Download account data</a>
                     <button type="button" id="migrate-button" class="btn btn-primary mt-1" data-bs-toggle="modal" data-bs-target="#migrate-modal">Upload to another account...</button>
@@ -160,7 +167,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="migrate-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="migrate-modal-title" aria-hidden="true">
+    <div class="modal fade" id="migrate-modal" tabindex="-1" aria-labelledby="migrate-modal-title" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -169,7 +176,7 @@
                 </div>
                 <form class="login-secondary" action="">
                     <div class="modal-body">
-                        <p>This will upload your account data to a new account. It will also notify
+                        <p class="text-muted">This will upload your account data to a new account. It will also notify
                         your contacts so they can update their contact list with your new address.
                         </p>
                         <p>Provide login details for your <em>new</em> XMPP account.</p>

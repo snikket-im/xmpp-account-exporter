@@ -293,6 +293,7 @@ window.addEventListener('converse-loaded', function(e) {
 				login_form.style.display = 'none';
 				logout_form.style.display = 'block';
 				hideErrorMessage();
+				window.scrollTo(0, 0);
 
 				getServiceURL(form_data.get('jid')).then(
 					(service_url) => {
@@ -364,6 +365,8 @@ window.addEventListener('converse-loaded', function(e) {
 				resultJid = null;
 				hideErrorMessage();
 				_converse.api.user.logout();
+				document.getElementById("loading-spinner").classList.remove("d-none")
+				document.getElementById("account-management-card").classList.add("d-none")
 			});
 
 			_converse.api.listen.on('disconnected', () => {
@@ -385,6 +388,7 @@ window.addEventListener('converse-loaded', function(e) {
 				}
 			});
 			_converse.api.listen.on('connected', () => {
+				document.getElementById("loading-spinner").classList.add("d-none")
 				output_el.innerHTML = '';
 				updateLoginForm();
 				console.log("connected");
