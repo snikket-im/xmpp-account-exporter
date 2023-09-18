@@ -309,6 +309,7 @@ window.addEventListener('converse-loaded', function(e) {
 							"Your account is not currently compatible with this service.",
 							err || "The chosen server does not advertise any suitable connection methods as described in XEP-0156."
 						);
+						account_management_card.classList.add("d-none")
 					}
 				);
 			});
