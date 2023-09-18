@@ -277,6 +277,7 @@ window.addEventListener('converse-loaded', function(e) {
 			const body = document.querySelector('body');
 			const logout_form = document.querySelector('form.logout');
 			const output_el = document.querySelector('.output');
+			const account_management_card = document.getElementById("account-management-card");
 			const download_panel = document.querySelector('.download');
 			const conn_status_panel = document.querySelector('#connection-status-panel');
 			const login_form = document.querySelector('form.login');
@@ -287,6 +288,8 @@ window.addEventListener('converse-loaded', function(e) {
 				ev.preventDefault();
 				const form_data = new FormData(ev.target);
 				new_account_hint.style.display = 'none'
+
+				account_management_card.classList.remove("d-none")
 				login_form.style.display = 'none';
 				logout_form.style.display = 'block';
 				hideErrorMessage();

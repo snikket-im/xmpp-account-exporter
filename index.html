@@ -43,7 +43,7 @@
 		</div>
 
         <form class="login" action="">
-            <div class="row justify-content-center pt-4">
+            <div class="row justify-content-center py-4">
                 <div class="col-12 col-md-6 p-4 p-md-5 border rounded-3 bg-body-tertiary">
                     <h3>Connect to your account</h3>
                     <p>Let's get started! Enter the details of the account you want to export your data <em>from</em>.</p>
@@ -62,45 +62,48 @@
             </div>
         </form>
 
-        <div class="alert alert-secondary" id="connection-status-panel" style="display:none" role="alert">
-            <form class="logout" style="display: none">
-                <div class="d-flex align-items-center">
-                    <div class="flex-fill">
-                        <span id="conn-status-text">Logged in</span>&nbsp;
-                    </div>
-                    <button type="button" class="btn btn-link" data-bs-toggle="offcanvas" data-bs-target="#code-offcanvas" aria-controls="code-offcanvas">Toggle debug info</button>
-                    <button type="submit" class="btn btn-secondary">Log out</button>
+        <div class="card card mt-3 mb-5 d-none" id="account-management-card">
+            <div class="card-header">
+                <div id="connection-status-panel" style="display:none">
+                    <form class="logout" style="display: none">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-fill">
+                                <span id="conn-status-text">Logged in</span>&nbsp;
+                            </div>
+                            <button type="button" class="btn btn-link" data-bs-toggle="offcanvas" data-bs-target="#code-offcanvas" aria-controls="code-offcanvas">Toggle debug info</button>
+                            <button type="submit" class="btn btn-secondary">Log out</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+            <div class="card-body">
+                <div id="download-status-panel" style="display:none">
+                    <h2>Exporting your data</h2>
+                    <p>Your data export is in progress...</p>
+                </div>
+
+                <div class="migration-status">
+                    <div class="alert alert-success" id="migration-status-success" style="display:none">
+                        <h2>Migration complete</h2>
+                        <p>Congratulations! Your data has been uploaded to your new account.</p>
+                    </div>
+                    <div class="alert alert-warning" id="migration-status-warning" style="display:none">
+                        <h2>Some data failed to migrate</h2>
+                        <p>There were errors while migrating the following data:</p>
+                        <ul id="migration-failure-list"></ul>
+                    </div>
+                </div>
+
+                <div class="download" style="display:none">
+                    <h2>Manage your data</h2>
+                    <p>Your account data for <code id="exported-jid"></code> is ready. Download it now, or migrate it to a new account.</p>
+                    <a id="download-button" class="btn btn-primary mt-1 me-4" href="#">Download account data</a>
+                    <button type="button" id="migrate-button" class="btn btn-primary mt-1" data-bs-toggle="modal" data-bs-target="#migrate-modal">Upload to another account...</button>
+                    <p class="pt-3">The exported data contains your:</p>
+                    <ul id="exported-data-list"></ul>
+                </div>
+            </div>
         </div>
-
-        <div id="download-status-panel" style="display:none">
-        	<h2>Exporting your data</h2>
-        	<p>Your data export is in progress...</p>
-        </div>
-
-	<div class="migration-status">
-		<div class="alert alert-success" id="migration-status-success" style="display:none">
-			<h2>Migration complete</h2>
-			<p>Congratulations! Your data has been uploaded to your new account.</p>
-		</div>
-		<div class="alert alert-warning" id="migration-status-warning" style="display:none">
-			<h2>Some data failed to migrate</h2>
-			<p>There were errors while migrating the following data:</p>
-			<ul id="migration-failure-list"></ul>
-		</div>
-	</div>
-
-	<div class="download" style="display:none">
-		<h2>Manage your data</h2>
-		<p>Your account data for <code id="exported-jid"></code> is ready. Download it now, or migrate it to a new account.</p>
-		<a id="download-button" class="btn btn-primary mt-1" href="#">Download account data</a>
-		&nbsp;
-		<button type="button" id="migrate-button" class="btn btn-primary mt-1" data-bs-toggle="modal" data-bs-target="#migrate-modal">Upload to another account...</button>
-		<p class="pt-3">The exported data contains your:</p>
-		<ul id="exported-data-list">
-		</ul>
-	</div>
 
     </div>
 
