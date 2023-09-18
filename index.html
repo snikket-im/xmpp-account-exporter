@@ -68,7 +68,7 @@
                     <div class="flex-fill">
                         <span id="conn-status-text">Logged in</span>&nbsp;
                     </div>
-                    <button type="button" class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#debug-panel">Toggle debug info</button>
+                    <button type="button" class="btn btn-link" data-bs-toggle="offcanvas" data-bs-target="#code-offcanvas" aria-controls="code-offcanvas">Toggle debug info</button>
                     <button type="submit" class="btn btn-secondary">Log out</button>
                 </div>
             </form>
@@ -102,16 +102,6 @@
 		</ul>
 	</div>
 
-	<br/>
-
-
-
-        <br/>
-        <div class="collapse" id="debug-panel">
-        	<h5>Debug info</h5>
-        	<p>This information may be useful to developers.</p>
-	        <div class="output"></div>
-	</div>
     </div>
 
     <footer class="bg-body-secondary">
@@ -155,6 +145,17 @@
             </div>
         </div>
     </footer>
+
+    <div class="offcanvas offcanvas-start" data-bs-theme="dark" tabindex="-1" id="code-offcanvas" aria-labelledby="code-offcanvas-label">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="code-offcanvas-label">Debug info</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body small">
+            <p>This information may be useful to developers.</p>
+            <div class="output"></div>
+        </div>
+    </div>
 
     <div class="modal fade" id="migrate-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="migrate-modal-title" aria-hidden="true">
         <div class="modal-dialog">
