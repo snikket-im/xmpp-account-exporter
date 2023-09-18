@@ -253,6 +253,18 @@ function getServiceURL(jid) {
 	});
 }
 
+document.getElementById("copy-debug-info").addEventListener("click", function() {
+	const output_el_children = document.querySelector('.output').children;
+	let debug_output = ""
+	for (const element in output_el_children) {
+		const element_text = output_el_children[element].textContent
+		if (element_text !== undefined) {
+			debug_output += element_text + "\n"
+		}
+	}
+	navigator.clipboard.writeText(debug_output);
+})
+
 window.addEventListener('converse-loaded', function(e) {
 	let converse = e.detail.converse;
 
