@@ -19,7 +19,7 @@ one at [migrate.modernxmpp.org](https://migrate.modernxmpp.org/).
 
 ## Source
 
-Depends on Bootstrap CSS framework v5.0.2.
+Depends on Bootstrap CSS framework v5.3.2.
 
 ## Credits
 

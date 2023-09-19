@@ -253,6 +253,18 @@ function getServiceURL(jid) {
 	});
 }
 
+document.getElementById("copy-debug-info").addEventListener("click", function() {
+	const output_el_children = document.querySelector('.output').children;
+	let debug_output = ""
+	for (const element in output_el_children) {
+		const element_text = output_el_children[element].textContent
+		if (element_text !== undefined) {
+			debug_output += element_text + "\n"
+		}
+	}
+	navigator.clipboard.writeText(debug_output);
+})
+
 window.addEventListener('converse-loaded', function(e) {
 	let converse = e.detail.converse;
 
@@ -277,17 +289,23 @@ window.addEventListener('converse-loaded', function(e) {
 			const body = document.querySelector('body');
 			const logout_form = document.querySelector('form.logout');
 			const output_el = document.querySelector('.output');
+			const account_management_card = document.getElementById("account-management-card");
 			const download_panel = document.querySelector('.download');
 			const conn_status_panel = document.querySelector('#connection-status-panel');
 			const login_form = document.querySelector('form.login');
 			const secondary_login_form = document.querySelector('form.login-secondary');
+			const new_account_hint = document.getElementById('new-account-hint')
 
 			login_form.addEventListener('submit', ev => {
 				ev.preventDefault();
 				const form_data = new FormData(ev.target);
+				new_account_hint.style.display = 'none'
+
+				account_management_card.classList.remove("d-none")
 				login_form.style.display = 'none';
 				logout_form.style.display = 'block';
 				hideErrorMessage();
+				window.scrollTo(0, 0);
 
 				getServiceURL(form_data.get('jid')).then(
 					(service_url) => {
@@ -303,6 +321,7 @@ window.addEventListener('converse-loaded', function(e) {
 							"Your account is not currently compatible with this service.",
 							err || "The chosen server does not advertise any suitable connection methods as described in XEP-0156."
 						);
+						account_management_card.classList.add("d-none")
 					}
 				);
 			});
@@ -359,6 +378,8 @@ window.addEventListener('converse-loaded', function(e) {
 				resultJid = null;
 				hideErrorMessage();
 				_converse.api.user.logout();
+				document.getElementById("loading-spinner").classList.remove("d-none")
+				document.getElementById("account-management-card").classList.add("d-none")
 			});
 
 			_converse.api.listen.on('disconnected', () => {
@@ -380,6 +401,7 @@ window.addEventListener('converse-loaded', function(e) {
 				}
 			});
 			_converse.api.listen.on('connected', () => {
+				document.getElementById("loading-spinner").classList.add("d-none")
 				output_el.innerHTML = '';
 				updateLoginForm();
 				console.log("connected");
