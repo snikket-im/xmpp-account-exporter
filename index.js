@@ -1,6 +1,7 @@
 let data_names = {
 	"jabber:iq:roster": "Contact list",
 	"vcard-temp": "Profile information",
+	"jabber:iq:private": "Chat room bookmarks",
 };
 
 // Hard-code BOSH URLs for some servers without XEP-0156 support
@@ -117,11 +118,47 @@ function fetchVCard(_converse, env) {
 	});
 }
 
+function uploadBookmarks(_converse, env, bookmarks) {
+	console.log("Uploading bookmarks...");
+	return new Promise(function(resolve, reject) {
+		let request = env.$iq({
+				type: "set"
+			})
+			.cnode(bookmarks);
+		_converse.connection.sendIQ(request,
+			(result) => resolve("jabber:iq:private"),
+			(err) => reject(err)
+		);
+	});
+}
+
+function fetchBookmarks(_converse, env) {
+	// Legacy bookmarks, lowest common denominator, likely to be covered by
+	// compat layers for some time
+	return new Promise(function(resolve, reject) {
+		let pepListRequest = env.$iq({
+			type: "get"
+		}).c("query", {
+			xmlns: "jabber:iq:private"
+		}).c("storage", {
+			xmlns: "storage:bookmarks"
+		});
+		_converse.connection.sendIQ(pepListRequest,
+			(stanza) => resolve(env.sizzle("iq>query", stanza)[0]),
+			(err) => {
+				let errName = err.querySelector("error :first-child").nodeName;
+				reject(errName);
+			}
+		);
+	});
+}
+
 function fetchData(_converse, env) {
 	console.log("Fetching data...");
 	return Promise.allSettled([
 		fetchRoster(_converse, env),
 		fetchVCard(_converse, env),
+		fetchBookmarks(_converse, env),
 	]);
 }
 
@@ -511,6 +548,10 @@ window.addEventListener('converse-loaded', function(e) {
 								case "vcard-temp":
 									let vCardPromise = uploadVCard(_converse, converse.env, element);
 									uploadResults.push(vCardPromise.catch(err=>Promise.reject("vcard-temp")));
+									break;
+								case "jabber:iq:private":
+									let bookmarksPromise = uploadBookmarks(_converse, converse.env, element);
+									uploadResults.push(bookmarksPromise.catch(err=>Promise.reject("jabber:iq:private")));
 									break;
 							}
 						}
