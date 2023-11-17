@@ -51,9 +51,7 @@ function uploadRoster(_converse, env, roster, notify) {
 			let contact_jid = roster_item.getAttribute("jid");
 			let contact_name = roster_item.getAttribute("name");
 			let old_sub_state = roster_item.getAttribute("subscription");
-			if (notify) 
-			{
-				
+			if (notify) {		
 				if (old_sub_state == "both" || old_sub_state == "from") {
 					// We had an incoming 
 					let preapproval = $pres({
