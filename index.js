@@ -77,8 +77,7 @@ function uploadRoster(_converse, env, roster, notify) {
 					.c("item", {
 						jid: contact_jid, 
 						name: contact_name
-					});
-					
+					});					
 					_converse.connection.send(roster_name);
 				}
 			} else {
