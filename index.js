@@ -49,23 +49,39 @@ function uploadRoster(_converse, env, roster, notify) {
 	return new Promise(function(resolve, reject) {
 		Strophe.forEachChild(roster, "item", (roster_item) => {
 			let contact_jid = roster_item.getAttribute("jid");
+			let contact_name = roster_item.getAttribute("name");
 			let old_sub_state = roster_item.getAttribute("subscription");
-			if (notify) {
+			if (notify) 
+			{
+				
 				if (old_sub_state == "both" || old_sub_state == "from") {
 					// We had an incoming 
 					let preapproval = $pres({
 						to: contact_jid,
 						type: "subscribed"
 					});
-					_converse.connection.send(preapproval);
+					_converse.connection.send(preapproval);		
 				}
 				if (old_sub_state == "both" || old_sub_state == "to") {
 					// We had an outgoing
-					let sub = $pres({
+					let sub = $pres({ 
 						to: roster_item.getAttribute("jid"),
 						type: "subscribe"
-					});
+					});					
 					_converse.connection.send(sub);
+					let roster_name = $iq({
+						type: "set", 
+						id: "import-contact-name"
+					})
+					.c("query", {
+						xmlns: "jabber:iq:roster"
+					})
+					.c("item", {
+						jid: contact_jid, 
+						name: contact_name
+					});
+					
+					_converse.connection.send(roster_name);
 				}
 			} else {
 				// No subscription requests/approvals, only add roster entry
@@ -77,7 +93,8 @@ function uploadRoster(_converse, env, roster, notify) {
 						xmlns: "jabber:iq:roster"
 					})
 					.c("item", {
-						jid: contact_jid
+						jid: contact_jid, 
+						name: contact_name
 					});
 				_converse.connection.send(roster_add);
 			}
