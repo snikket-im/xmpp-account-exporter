@@ -65,7 +65,7 @@ function uploadRoster(_converse, env, roster, notify) {
 					let sub = $pres({
 						to: roster_item.getAttribute("jid"),
 						type: "subscribe"
-					});	
+					});
 					_converse.connection.send(sub);
 					let roster_name = $iq({
 						type: "set",
