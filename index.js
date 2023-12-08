@@ -7,6 +7,7 @@ let data_names = {
 // Hard-code BOSH URLs for some servers without XEP-0156 support
 let static_service_urls = {
 	"chatterboxtown.us": "https://chatterboxtown.us:5443/bosh",
+	"jabber.de": "https://jabber.de:5281/http-bind",
 	"libre-chat.net": "https://libre-chat.net:5280/bosh",
 	"snopyta.org": "https://xmpp.snopyta.org/http-bind"
 };
