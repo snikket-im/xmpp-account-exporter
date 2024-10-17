@@ -9,7 +9,8 @@ let static_service_urls = {
 	"chatterboxtown.us": "https://chatterboxtown.us:5443/bosh",
 	"jabber.de": "https://jabber.de:5281/http-bind",
 	"libre-chat.net": "https://libre-chat.net:5280/bosh",
-	"snopyta.org": "https://xmpp.snopyta.org/http-bind"
+	"snopyta.org": "https://xmpp.snopyta.org/http-bind",
+	"wiuwiu.de": "https://wiuwiu.de/http-bind"
 };
 
 function setServiceUrl(_converse, service_url) {
